@@ -32,7 +32,7 @@ I configured a private virtual network where the Windows Server acts as the Prim
 * Joined the workstation to the `corp.local` domain.
 * Verified the "Handshake" between client and server via successful domain login.
 
-*[Insert Screenshot of "Welcome to corp.local" message here]*
+![Client Domain Join](domain-join-success.png)
 
 ## 🎯 Key Skills Demonstrated
 * **Infrastructure Setup:** Installing and configuring Windows Server in a virtualized environment.
@@ -40,6 +40,3 @@ I configured a private virtual network where the Windows Server acts as the Prim
 * **Troubleshooting:** Diagnosing connectivity issues between VMs on different subnets.
 * **Administration:** User account creation, password management, and security policy implementation.
 
-## 🔜 Next Steps
-* Implementing Group Policy Objects (GPO) to manage desktop backgrounds and security settings.
-* Simulating Help Desk tickets (Password Resets, Account Lockouts).
