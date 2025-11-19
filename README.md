@@ -20,7 +20,7 @@ I configured a private virtual network where the Windows Server acts as the Prim
 * **Client DNS:** Pointed to Server (`192.168.0.200`) to enable domain resolution.
 * **Verification:** Successfully verified connectivity via ICMP (Ping) before attempting domain join.
 
-*[Insert Screenshot of your Ping Command here]*
+![Description of Image](PingSuccessfull.png)
 
 ### 2. Active Directory Deployment
 * Promoted Windows Server 2022 to a Domain Controller.
