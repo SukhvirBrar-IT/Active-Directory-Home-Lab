@@ -47,3 +47,16 @@ I configured a private virtual network where the Windows Server acts as the Prim
 
 *Evidence: The standard user 'sjones' is blocked by UAC when attempting to change the system time, requiring Administrator credentials.*
 
+
+
+### 🔧 Troubleshooting Highlight: DNS & Time Skew
+**Issue:** The GPO initially failed with a "Clock Skew" error.
+**Diagnosis:** Active Directory relies on Kerberos, which requires client/server clocks to be synced within 5 minutes. The client VM had drifted.
+**Resolution:**
+1. Manually synchronized Client clock to DC01 time.
+2. Ran `w32tm /resync` to lock the time.
+3. Ran `gpupdate /force` which completed successfully.
+
+**Final Result:**
+![GPO Success](gpo-wallpaper-success.png)
+*Evidence: Corporate wallpaper applied automatically to the Marketing department.*
