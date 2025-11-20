@@ -40,3 +40,10 @@ I configured a private virtual network where the Windows Server acts as the Prim
 * **Troubleshooting:** Diagnosing connectivity issues between VMs on different subnets.
 * **Administration:** User account creation, password management, and security policy implementation.
 
+## Project 1: User Security & Permissions
+**Objective:** Demonstrated the Principle of Least Privilege by creating standard user accounts and verifying they cannot modify system-level settings.
+
+![User Account Control Prompt](Blocked.png)
+
+*Evidence: The standard user 'sjones' is blocked by UAC when attempting to change the system time, requiring Administrator credentials.*
+
