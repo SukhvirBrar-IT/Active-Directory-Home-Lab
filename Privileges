@@ -1,2 +1,3 @@
 Demonstrating 'Least Privilege' security: Standard Domain Users are blocked from modifying system-level settings (like System Time) without Administrator credentials.
 User sjones is blocked from modifying system level settings without administrator credentials. 
+![Description of Image](Blocked.png)
