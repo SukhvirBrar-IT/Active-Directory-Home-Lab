@@ -60,3 +60,51 @@ I configured a private virtual network where the Windows Server acts as the Prim
 **Final Result:**
 ![GPO Success](gpo-wallpaper-success.png)
 *Evidence: Corporate wallpaper applied automatically to the Marketing department.*
+
+
+
+
+
+## Project 3: Automated Printer Deployment & GPO Troubleshooting
+**Objective:** Automate the deployment of shared network printers to specific departments using Group Policy Preferences (GPP), reducing manual installation tickets.
+
+### 🎫 The Scenario (Spiceworks Ticket #1003)
+* **Request:** Marketing user **Sarah Jones** submitted a ticket stating she could not access the department's "HR-Printer."
+* **Goal:** Map the printer automatically so it appears every time she logs in, without requiring Admin rights.
+
+### 🛠️ Technical Implementation
+1.  **Server-Side Setup:**
+    * Created a "Ghost Printer" on **Server 2022** using a Local Port (`C:\Printers\HR-Output.txt`) to simulate physical hardware in a virtual environment.
+    * Configured Printer Sharing (`\\DC01\HR-Printer`) to make it accessible across the domain.
+2.  **Group Policy Configuration:**
+    * Edited the `Marketing` GPO.
+    * Navigate to: **User Configuration > Preferences > Control Panel Settings > Printers**.
+    * Configured a **Shared Printer** object to Create/Update the connection to `\\DC01\HR-Printer`.
+    * Targeted specifically to the **Marketing OU**.
+
+### 🔧 Critical Troubleshooting (The "Real World" Challenges)
+During deployment, the GPO initially failed to apply. I diagnosed and resolved the following root causes:
+
+* **Issue 1: Time Skew (Kerberos Failure)**
+    * *Symptom:* Client rejected the GPO with a "Clock Skew" error.
+    * *Diagnosis:* The VM had drifted >24 hours behind the Domain Controller, breaking Kerberos authentication.
+    * *Fix:* Manually synchronized Server time via Command Line (`date` / `time`) and forced Client sync using `w32tm /resync`.
+
+* **Issue 2: Name Resolution Failure (DNS)**
+    * *Symptom:* `gpupdate` failed with "Windows could not resolve the computer name."
+    * *Diagnosis:* Client `nslookup` failed to find `corp.local`.
+    * *Fix:* Hardcoded the Client's DNS to point strictly to the Domain Controller (`192.168.0.200`) and flushed the cache (`ipconfig /flushdns`).
+
+* **Issue 3: Network Isolation (Firewall)**
+    * *Symptom:* DNS worked, but GPO download timed out.
+    * *Fix:* Configured Windows Defender Firewall on the Server to allow domain traffic.
+
+### 📸 Evidence of Success
+
+**1. Verification on Client Workstation:**
+*The "HR-Printer" automatically appeared in Sarah's settings after a successful `gpupdate` and login.*
+![Printer Success Screenshot](HR-Printer.png)
+
+**2. Ticket Lifecycle (Spiceworks):**
+*Ticket documented with resolution steps and closed.*
+![Spiceworks Ticket Closed](Ticketclosed.png)
