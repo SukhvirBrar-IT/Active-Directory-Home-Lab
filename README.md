@@ -108,3 +108,30 @@ During deployment, the GPO initially failed to apply. I diagnosed and resolved t
 **2. Ticket Lifecycle (Spiceworks):**
 *Ticket documented with resolution steps and closed.*
 ![Spiceworks Ticket Closed](Ticketclosed.png)
+
+
+# Lab 2: Automated Network Drive Deployment (GPO)
+**Role:** IT Support Specialist | **Tools:** Windows Server 2022, Group Policy Management, DNS
+
+## 1. The Incident (Spiceworks Ticket #1055)
+**User:** Sarah Jones (Marketing)
+**Issue:** User reported missing access to the departmental "Marketing" file share required for storing Q4 reports.
+**Root Cause:** The user's account was located in a generic container (Users) rather than the correct Organizational Unit (OU), preventing the Group Policy from applying.
+
+## 2. The Resolution
+* **Infrastructure:** Created a secured shared folder (`\\CORP\MarketingDocs`) on the Domain Controller.
+* **Automation:** Configured a Group Policy Object (GPO) to automatically map the folder as the **M: Drive** for the Marketing team.
+* **Troubleshooting:**
+    * Identified a "Split Brain" DNS issue where the client was not pointing to the Domain Controller.
+    * Corrected the Active Directory structure by moving `sjones` to the correct **Marketing OU**.
+    * Linked the GPO to the correct OU.
+
+## 3. Proof of Work
+![Alt Text: Creating the Share and Permissions](Lab2_02_Folder_Share_Settings.png)
+*Fig 1: Configuring NTFS permissions to restrict access to authorized personnel only.*
+
+![Alt Text: Configuring the Group Policy](Lab2_03_GPO_Drive_Map_Config.png)
+*Fig 2: Setting up the Drive Map preference in Group Policy Management.*
+
+![Alt Text: Successful Deployment](Lab2_04_Success_Mapped_Drive.png)
+*Fig 3: Verification on the Client workstation. The M: Drive is now automatically available.*
